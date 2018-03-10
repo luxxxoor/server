@@ -1,5 +1,4 @@
 import java.io.DataInputStream;
-import java.io.DataOutput;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -8,14 +7,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class KnockKnockProtocol {
-    private static int port = 4431;
+public class ServerStartUpApp {
+    // Wait for client to connect on 4432
+    private static int PORT = 4432;
 
     public static void main(String[] args) {
-        // Wait for client to connect on 4431
         final ExecutorService executorService = Executors.newCachedThreadPool();
         try {
-            ServerSocket serverSocket = new ServerSocket(4432);
+            ServerSocket serverSocket = new ServerSocket(PORT);
             while (true) {
                 Socket socket = serverSocket.accept();
                 executorService.submit(new MyClass(socket));
@@ -26,7 +25,6 @@ public class KnockKnockProtocol {
     }
 
     static class MyClass implements Runnable {
-
         Socket socket;
 
         public MyClass(Socket socket) {
